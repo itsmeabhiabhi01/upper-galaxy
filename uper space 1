@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HAPPY TALK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA1IiBudW1PY3RhdmVzPSI1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==') repeat;
+            color: #fff;
+        }
+        
+        /* Galaxy/space background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(75, 0, 130, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 40% 60%, rgba(0, 191, 255, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 60% 40%, rgba(255, 20, 147, 0.3) 0%, transparent 20%),
+                radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, #000 100%);
+            z-index: -2;
+        }
+        
+        /* Stars */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 200px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 230px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 270px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 20px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 330px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 360px 90px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 390px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 420px 110px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 480px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 510px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 540px 100px, #fff, rgba(0,0,0,0));
+            background-size: 550px 550px;
+            z-index: -1;
+            animation: stars 50s linear infinite;
+        }
+        
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 550px 0; }
+        }
+        
+        .dark-mode { 
+            background: #1f282e; 
+            color: #fff; 
+        }
+        .dark-mode::before, .dark-mode::after {
+            display: none;
+        }
+        
+        .light-mode { 
+            background: #b3e6e6; 
+            color: #000; 
+        }
+        .light-mode::before, .light-mode::after {
+            display: none;
+        }
+        
+        .real-mode { 
+            background: #000; 
+            color: #fff; 
+        }
+        .real-mode::before, .real-mode::after {
+            display: block;
+        }
+        
+        .navbar {
+            width: 250px;
+            height: 100vh;
+            background: rgba(31, 40, 46, 0.8);
+            padding: 20px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+        .navbar.collapsed {
+            width: 80px;
+            overflow: hidden;
+        }
+        .navbar.collapsed .nav-content {
+            display: none;
+        }
+        .light-mode .navbar { background: rgba(209, 209, 209, 0.8); color: #000; }
+        .real-mode .navbar { background: rgba(31, 40, 46, 0.8); }
+        .nav-button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background: #1e90ff;
+            border-radius: 5px;
+            text-align: left;
+            transition: all 0.3s ease;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .nav-button:hover { background: #60a5fa; }
+        .main-content {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .main-content.expanded {
+            margin-left: 80px;
+            width: calc(100% - 80px);
+        }
+        .room-card {
+            width: 100%;
+            min-height: 280px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            background: rgba(31, 40, 46, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-mode .room-card { background: #2a2a2a; }
+        .light-mode .room-card { background: #d1d1d1; color: #000; }
+        .real-mode .room-card { background: rgba(31, 40, 46, 0.7); }
+        .room-card:hover { 
+            border: 1px solid #1e90ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(30, 144, 255, 0.3);
+        }
+        .room-title { 
+            color: #ffffff; 
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+        }
+        .mode-buttons button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background: rgba(42, 42, 42, 0.7);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .mode-buttons button:hover {
+            background: rgba(30, 144, 255, 0.7);
+        }
+        
+        /* Animated floating elements */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+    </style>
+</head>
+<body class="real-mode">
+    <!-- Navbar -->
+    <div class="navbar">
+        <div class="flex justify-between items-center mb-6">
+            <div class="text-2xl font-bold text-white hover:text-[#1e90ff] transition-colors">HAPPY TALK</div>
+            <button id="toggle-navbar" class="text-white"><i class="fas fa-bars"></i></button>
+        </div>
+        <div class="nav-content">
+            <button class="nav-button">Home</button>
+            <button class="nav-button">Profile</button>
+            <button class="nav-button">Rooms</button>
+            <button class="nav-button">Settings</button>
+            <div class="mt-4">
+                <p class="text-white mb-2">Social Media</p>
+                <button class="nav-button" onclick="window.open('https://discord.gg/bmfp2bmN', '_blank')"><i class="fab fa-discord mr-2"></i>Discord</button>
+                <button class="nav-button" onclick="window.open('https://twitter.com', '_blank')"><i class="fab fa-twitter mr-2"></i>Twitter</button>
+                <button class="nav-button" onclick="window.open('https://facebook.com', '_blank')"><i class="fab fa-facebook mr-2"></i>Facebook</button>
+                <button class="nav-button" onclick="window.open('https://instagram.com', '_blank')"><i class="fab fa-instagram mr-2"></i>Instagram</button>
+            </div>
+            <div class="mt-4">
+                <p class="text-white mb-2">Background Color</p>
+                <button class="nav-button" id="color-picker-btn">Pick Color</button>
+                <input type="color" id="color-picker" style="display: none;">
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content flex flex-col items-center w-full max-w-7xl mx-auto">
+        <div class="flex flex-col w-full mb-4">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center space-x-2">
+                    <img alt="Network icon" class="w-5 h-5 floating" src="https://storage.googleapis.com/a1aa/image/fLztLCzaM637SaUphiDzOCj14brykBFanIxefgS0tWenxfFgC.jpg"/>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="mode-buttons">
+                        <button id="dark-mode-btn"><i class="fas fa-moon"></i> Dark</button>
+                        <button id="light-mode-btn"><i class="fas fa-sun"></i> Light</button>
+                        <button id="real-mode-btn"><i class="fas fa-rocket"></i> Space</button>
+                    </div>
+                    <img alt="Profile" class="w-10 h-10 rounded-full floating" src="https://storage.googleapis.com/a1aa/image/uL6NbO7ule3yAaG0CpQKIilAue8eTYNquHR1ozsJXRzA5fCQB.jpg"/>
+                </div>
+            </div>
+            <!-- Rest of your header content -->
+        </div>
+
+        <!-- Rooms -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full" id="room-grid">
+            <div class="room-card floating" style="animation-delay: 0.1s">
+                <h3 class="room-title text-xl font-bold">Room 1</h3>
+                <p>English | 5/10</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.2s">
+                <h3 class="room-title text-xl font-bold">Room 2</h3>
+                <p>Spanish | 3/8</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.3s">
+                <h3 class="room-title text-xl font-bold">Room 3</h3>
+                <p>French | 4/12</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.4s">
+                <h3 class="room-title text-xl font-bold">Room 4</h3>
+                <p>German | 6/10</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.5s">
+                <h3 class="room-title text-xl font-bold">Room 5</h3>
+                <p>Italian | 2/15</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.6s">
+                <h3 class="room-title text-xl font-bold">Room 6</h3>
+                <p>Japanese | 7/10</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.7s">
+                <h3 class="room-title text-xl font-bold">Room 7</h3>
+                <p>Chinese | 4/8</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.8s">
+                <h3 class="room-title text-xl font-bold">Room 8</h3>
+                <p>Korean | 5/12</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+            <div class="room-card floating" style="animation-delay: 0.9s">
+                <h3 class="room-title text-xl font-bold">Room 9</h3>
+                <p>Russian | 3/10</p>
+                <div class="people-row flex flex-wrap gap-2">
+                    <img class="profile-pic w-12 h-12 rounded-full" src="https://via.placeholder.com/50"/>
+                </div>
+            </div>
+        </div>
+
+        <!-- Rest of your content (modal, plus-icon, etc.) -->
+    </div>
+
+    <script>
+        const toggleNavbar = document.getElementById('toggle-navbar');
+        const navbar = document.querySelector('.navbar');
+        const mainContent = document.querySelector('.main-content');
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const lightModeBtn = document.getElementById('light-mode-btn');
+        const realModeBtn = document.getElementById('real-mode-btn');
+        const colorPickerBtn = document.getElementById('color-picker-btn');
+        const colorPicker = document.getElementById('color-picker');
+
+        toggleNavbar.addEventListener('click', () => {
+            navbar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+            toggleNavbar.innerHTML = navbar.classList.contains('collapsed') ? 
+                '<i class="fas fa-arrow-right"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        darkModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('light-mode', 'real-mode');
+            document.body.classList.add('dark-mode');
+        });
+
+        lightModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'real-mode');
+            document.body.classList.add('light-mode');
+        });
+
+        realModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'light-mode');
+            document.body.classList.add('real-mode');
+        });
+
+        colorPickerBtn.addEventListener('click', () => {
+            colorPicker.click();
+        });
+
+        colorPicker.addEventListener('input', (e) => {
+            document.body.style.background = e.target.value;
+            document.body.classList.remove('dark-mode', 'light-mode', 'real-mode');
+        });
+
+        // Add more stars dynamically
+        function addMoreStars() {
+            const starsContainer = document.createElement('div');
+            starsContainer.style.position = 'fixed';
+            starsContainer.style.top = '0';
+            starsContainer.style.left = '0';
+            starsContainer.style.width = '100%';
+            starsContainer.style.height = '100%';
+            starsContainer.style.zIndex = '-1';
+            starsContainer.style.pointerEvents = 'none';
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+                starsContainer.appendChild(star);
+            }
+            
+            document.body.appendChild(starsContainer);
+        }
+        
+        // Call the function to add more stars
+        addMoreStars();
+    </script>
+</body>
+</html>
