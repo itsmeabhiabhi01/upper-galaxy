@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HAPPY TALK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA1IiBudW1PY3RhdmVzPSI1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==') repeat;
+            color: #fff;
+        }
+
+        /* Galaxy/space background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(75, 0, 130, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 40% 60%, rgba(0, 191, 255, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 60% 40%, rgba(255, 20, 147, 0.3) 0%, transparent 20%),
+                radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, #000 100%);
+            z-index: -2;
+        }
+
+        /* Stars */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 200px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 230px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 270px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 20px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 330px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 360px 90px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 390px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 420px 110px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 480px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 510px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 540px 100px, #fff, rgba(0,0,0,0));
+            background-size: 550px 550px;
+            z-index: -1;
+            animation: stars 50s linear infinite;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 550px 0; }
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        .dark-mode {
+            background: #1f282e;
+            color: #fff;
+        }
+        .dark-mode::before, .dark-mode::after {
+            display: none;
+        }
+
+        .light-mode {
+            background: #b3e6e6;
+            color: #000;
+        }
+        .light-mode::before, .light-mode::after {
+            display: none;
+        }
+
+        .real-mode {
+            background: #000;
+            color: #fff;
+        }
+        .real-mode::before, .real-mode::after {
+            display: block;
+        }
+
+        .main-content {
+            padding: 20px;
+            width: 100%;
+            transition: all 0.3s ease;
+        }
+
+        .room-card {
+            width: 100%;
+            min-height: 280px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            background: rgba(31, 40, 46, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .dark-mode .room-card {
+            background: #2a2a2a;
+        }
+        .light-mode .room-card {
+            background: #d1d1d1;
+            color: #000;
+        }
+        .real-mode .room-card {
+            background: rgba(31, 40, 46, 0.7);
+        }
+        .room-card:hover {
+            border: 2px solid #1e90ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(30, 144, 255, 0.3);
+        }
+        .room-title {
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+        }
+
+        .profile-pic {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin: 5px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #1e90ff;
+            animation: rotateColor 2s infinite;
+        }
+        .profile-pic.premium::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 3px solid #1e90ff;
+        }
+        .people-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 5px;
+            max-width: 100%;
+        }
+        @keyframes rotateColor {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .mode-buttons button {
+            margin: 0 5px;
+            padding: 5px 10px;
+            background: rgba(42, 42, 42, 0.7);
+            color: #fff;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        .mode-buttons button:hover {
+            background: rgba(30, 144, 255, 0.7);
+        }
+
+        .category-buttons {
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        .category-buttons.active {
+            display: flex;
+        }
+
+        .create-room-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #000000, #1e90ff);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            color: #fff;
+            width: 400px;
+        }
+        .create-room-modal.active {
+            display: block;
+        }
+        .create-room-modal input,
+        .create-room-modal select {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .custom-input {
+            display: none;
+            margin-top: 10px;
+        }
+        .custom-input.active {
+            display: block;
+        }
+
+        .plus-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #1e90ff;
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .plus-button:hover {
+            background: #60a5fa;
+            transform: scale(1.1);
+        }
+
+        .no-animation body::after,
+        .no-animation .stars-container {
+            animation: none !important;
+        }
+        .no-animation .stars-container div {
+            animation: none !important;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="real-mode">
+    <!-- Main Content -->
+    <div class="main-content flex flex-col items-center w-full max-w-7xl mx-auto">
+        <div class="flex flex-col w-full mb-4">
+            <div class="flex justify-between items-center w-full">
+                <div class="flex items-center space-x-2">
+                    <div class="relative w-1/3">
+                        <input id="search-input" class="bg-gray-800 text-white rounded-full pl-10 pr-4 py-2 w-full focus:outline-none" placeholder="Search" type="text"/>
+                        <i class="fas fa-search absolute left-3 top-2.5 text-gray-400"></i>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <div class="mode-buttons">
+                        <button id="dark-mode-btn"><i class="fas fa-moon"></i> Dark</button>
+                        <button id="light-mode-btn"><i class="fas fa-sun"></i> Light</button>
+                        <button id="real-mode-btn"><i class="fas fa-rocket"></i> Space</button>
+                        <button id="stop-animation-btn"><i class="fas fa-pause"></i> Stop Animation</button>
+                        <button id="color-picker-btn">Pick Color</button>
+                    </div>
+                    <input type="color" id="color-picker" style="display: none;">
+                    <img alt="Profile" class="w-10 h-10 rounded-full" src="https://storage.googleapis.com/a1aa/image/uL6NbO7ule3yAaG0CpQKIilAue8eTYNquHR1ozsJXRzA5fCQB.jpg"/>
+                </div>
+            </div>
+            <div class="flex justify-start items-center space-x-2 mt-2 flex-wrap">
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button" id="all-button">All</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">TRENDING</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">NEWS</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">NEW</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">TECH</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">ENGLISH</button>
+                <button class="bg-[#1e90ff] px-4 py-2 rounded-full nav-button">EDUCATION</button>
+                <button class="bg-[#5865F2] px-4 py-2 rounded-full nav-button" onclick="window.open('https://discord.gg/bmfp2bmN', '_blank')">Discord</button>
+                <button class="bg-[#dc2626] px-4 py-2 rounded-full nav-button">Premium</button>
+                <button class="bg-[#60a5fa] px-4 py-2 rounded-full nav-button create-room-btn" id="create-room-btn">Create Rooms</button>
+                <button class="bg-[#FFDD00] px-4 py-2 rounded-full nav-button text-black" onclick="window.open('https://buymeacoffee.com/socialnetworking', '_blank')"><i class="fas fa-coffee mr-2"></i>Buy me a coffee</button>
+            </div>
+            <div class="category-buttons" id="category-buttons"></div>
+        </div>
+
+        <!-- Room Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full" id="room-grid">
+            <!-- Room 1 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">English</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/65.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/45.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/35.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/15.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/75.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/EnglishRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 2 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Spanish</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/70.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/60.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/40.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/80.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/90.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/50.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/SpanishRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 3 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">French</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/71.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/61.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/41.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/81.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/91.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/51.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/31.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/FrenchRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 4 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Korean</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/72.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/62.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/52.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/82.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/92.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/42.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/32.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/72.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/KoreanRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 5 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Japanese</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/73.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/63.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/43.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/83.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/93.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/53.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/33.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/63.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/23.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/JapaneseRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 6 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Hindi</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/12.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/22.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/32.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/11.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/13.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/14.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/24.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/34.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/44.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/54.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/HindiRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 7 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Tamil</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/25.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/35.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/21.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/31.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/45.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/TamilRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 8 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Telugu</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/34.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/54.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/41.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/51.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/64.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/TeluguRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+            <!-- Room 9 -->
+            <div class="room-card">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Bengali</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3">
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/42.jpg"/>
+                    <img class="profile-pic premium" src="https://randomuser.me/api/portraits/women/46.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/43.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/men/45.jpg"/>
+                    <img class="profile-pic" src="https://randomuser.me/api/portraits/women/47.jpg"/>
+                </div>
+                <div class="flex justify-between items-center mt-3">
+                    <button class="bg-[#1e90ff] px-4 py-2 rounded-full text-base join-room" onclick="window.open('https://meet.jit.si/BengaliRoom', '_blank')">JOIN</button>
+                    <i class="fas fa-share-alt text-gray-400 text-lg"></i>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Room Modal -->
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="create-room-modal" id="create-room-modal">
+            <h2 class="text-2xl font-bold mb-6">Create a Room</h2>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Title</label>
+                <input type="text" class="w-full p-3 border rounded text-lg" id="room-title"/>
+            </div>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Language</label>
+                <select class="w-full p-3 border rounded text-lg" id="room-language">
+                    <option>English</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                    <option>Korean</option>
+                    <option>Japanese</option>
+                    <option>Hindi</option>
+                    <option>Tamil</option>
+                    <option>Telugu</option>
+                    <option>Bengali</option>
+                    <option>Malayalam</option>
+                    <option>German</option>
+                    <option>Italian</option>
+                    <option>Russian</option>
+                    <option>Arabic</option>
+                    <option>Portuguese</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Max People</label>
+                <select class="w-full p-3 border rounded text-lg" id="room-max-people">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>Unlimited</option>
+                    <option>Custom</option>
+                </select>
+                <input type="number" class="w-full p-3 border rounded text-lg custom-input" id="custom-max" placeholder="Enter custom number"/>
+            </div>
+            <div class="mb-6">
+                <label class="flex items-center text-lg mb-2">
+                    <input type="checkbox" class="mr-2" id="mic-toggle"/> <i class="fas fa-microphone mr-2"></i> Mic
+                </label>
+                <label class="flex items-center text-lg mb-2">
+                    <input type="checkbox" class="mr-2" id="camera-toggle"/> <i class="fas fa-video mr-2"></i> Camera
+                </label>
+                <label class="flex items-center text-lg">
+                    <input type="checkbox" class="mr-2" id="chat-toggle"/> <i class="fas fa-comments mr-2"></i> Chat
+                </label>
+            </div>
+            <button class="bg-blue-600 text-white px-6 py-3 rounded text-lg" id="create-button">Create</button>
+        </div>
+
+        <!-- Plus Button -->
+        <div class="plus-button" id="plus-button">
+            <i class="fas fa-plus text-2xl"></i>
+        </div>
+    </div>
+
+    <script>
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const lightModeBtn = document.getElementById('light-mode-btn');
+        const realModeBtn = document.getElementById('real-mode-btn');
+        const stopAnimationBtn = document.getElementById('stop-animation-btn');
+        const colorPickerBtn = document.getElementById('color-picker-btn');
+        const colorPicker = document.getElementById('color-picker');
+        const allButton = document.getElementById('all-button');
+        const categoryButtons = document.getElementById('category-buttons');
+        const navButtons = document.querySelectorAll('.nav-button');
+        const createRoomBtn = document.getElementById('create-room-btn');
+        const createRoomModal = document.getElementById('create-room-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const createButton = document.getElementById('create-button');
+        const roomMaxPeople = document.getElementById('room-max-people');
+        const customMax = document.getElementById('custom-max');
+        const searchInput = document.getElementById('search-input');
+        const roomGrid = document.getElementById('room-grid');
+        const plusButton = document.getElementById('plus-button');
+
+        const languages = [
+            'English', 'Spanish', 'French', 'German', 'Italian', 'Japanese', 'Chinese', 'Korean', 'Russian', 'Arabic',
+            'Portuguese', 'Hindi', 'Bengali', 'Tamil', 'Telugu', 'Marathi', 'Gujarati', 'Punjabi', 'Urdu', 'Kannada',
+            'Malayalam', 'Odia', 'Assamese'
+        ];
+
+        let animationStopped = false;
+
+        darkModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('light-mode', 'real-mode');
+            document.body.classList.add('dark-mode');
+        });
+
+        lightModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'real-mode');
+            document.body.classList.add('light-mode');
+        });
+
+        realModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'light-mode');
+            document.body.classList.add('real-mode');
+        });
+
+        stopAnimationBtn.addEventListener('click', () => {
+            animationStopped = !animationStopped;
+            document.body.classList.toggle('no-animation');
+            stopAnimationBtn.innerHTML = animationStopped 
+                ? '<i class="fas fa-play"></i> Start Animation'
+                : '<i class="fas fa-pause"></i> Stop Animation';
+        });
+
+        colorPickerBtn.addEventListener('click', () => {
+            colorPicker.click();
+        });
+
+        colorPicker.addEventListener('input', (e) => {
+            document.body.style.background = e.target.value;
+            document.body.classList.remove('dark-mode', 'light-mode', 'real-mode');
+        });
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+            });
+        });
+
+        function sortRoomsByLanguage(language) {
+            const rooms = Array.from(roomGrid.children);
+            rooms.sort((a, b) => {
+                const aTitle = a.querySelector('.room-title').textContent.toLowerCase();
+                const bTitle = b.querySelector('.room-title').textContent.toLowerCase();
+                if (aTitle === language.toLowerCase()) return -1;
+                if (bTitle === language.toLowerCase()) return 1;
+                return 0;
+            });
+            rooms.forEach(room => roomGrid.appendChild(room));
+        }
+
+        allButton.addEventListener('click', () => {
+            if (categoryButtons.classList.contains('active')) {
+                categoryButtons.classList.remove('active');
+                categoryButtons.innerHTML = '';
+                allButton.classList.remove('active');
+            } else {
+                categoryButtons.classList.add('active');
+                allButton.classList.add('active');
+                languages.forEach(lang => {
+                    const button = document.createElement('button');
+                    button.className = 'bg-[#1e90ff] px-4 py-2 rounded-full nav-button';
+                    button.textContent = lang;
+                    button.addEventListener('click', () => {
+                        navButtons.forEach(btn => btn.classList.remove('active'));
+                        button.classList.add('active');
+                        categoryButtons.classList.remove('active');
+                        categoryButtons.innerHTML = '';
+                        allButton.classList.remove('active');
+                        sortRoomsByLanguage(lang);
+                    });
+                    categoryButtons.appendChild(button);
+                });
+            }
+        });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rooms = Array.from(roomGrid.children);
+            rooms.sort((a, b) => {
+                const aTitle = a.querySelector('.room-title').textContent.toLowerCase();
+                const bTitle = b.querySelector('.room-title').textContent.toLowerCase();
+                if (aTitle.includes(searchTerm) && !bTitle.includes(searchTerm)) return -1;
+                if (!aTitle.includes(searchTerm) && bTitle.includes(searchTerm)) return 1;
+                return 0;
+            });
+            rooms.forEach(room => roomGrid.appendChild(room));
+        });
+
+        createRoomBtn.addEventListener('click', () => {
+            createRoomModal.classList.add('active');
+            modalOverlay.classList.add('active');
+        });
+
+        modalOverlay.addEventListener('click', () => {
+            createRoomModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+        });
+
+        createButton.addEventListener('click', () => {
+            createRoomModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+        });
+
+        roomMaxPeople.addEventListener('change', () => {
+            customMax.classList.toggle('active', roomMaxPeople.value === 'Custom');
+        });
+
+        plusButton.addEventListener('click', () => {
+            createRoomModal.classList.add('active');
+            modalOverlay.classList.add('active');
+        });
+
+        // Add more stars dynamically
+        function addMoreStars() {
+            const starsContainer = document.createElement('div');
+            starsContainer.className = 'stars-container';
+            starsContainer.style.position = 'fixed';
+            starsContainer.style.top = '0';
+            starsContainer.style.left = '0';
+            starsContainer.style.width = '100%';
+            starsContainer.style.height = '100%';
+            starsContainer.style.zIndex = '-1';
+            starsContainer.style.pointerEvents = 'none';
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+                starsContainer.appendChild(star);
+            }
+            
+            document.body.appendChild(starsContainer);
+        }
+        
+        // Call the function to add more stars
+        addMoreStars();
+    </script>
+</body>
+</html>
