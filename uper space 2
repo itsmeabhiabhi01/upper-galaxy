@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HAPPY TALK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA1IiBudW1PY3RhdmVzPSI1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==') repeat;
+            color: #fff;
+        }
+        
+        /* Galaxy/space background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(138, 43, 226, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 80% 70%, rgba(75, 0, 130, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 40% 60%, rgba(0, 191, 255, 0.3) 0%, transparent 20%),
+                radial-gradient(circle at 60% 40%, rgba(255, 20, 147, 0.3) 0%, transparent 20%),
+                radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, #000 100%);
+            z-index: -2;
+        }
+        
+        /* Stars */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 160px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 200px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 230px 100px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 270px 70px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 300px 20px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 330px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 360px 90px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 390px 40px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 420px 110px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 450px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 480px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 510px 50px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 540px 100px, #fff, rgba(0,0,0,0));
+            background-size: 550px 550px;
+            z-index: -1;
+            animation: stars 50s linear infinite;
+        }
+        
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 550px 0; }
+        }
+        
+        .pure-dark-mode { 
+            background: #000; 
+            color: #fff; 
+        }
+        .pure-dark-mode::before, .pure-dark-mode::after {
+            display: none;
+        }
+        
+        .pure-light-mode { 
+            background: #fff; 
+            color: #000; 
+        }
+        .pure-light-mode::before, .pure-light-mode::after {
+            display: none;
+        }
+        
+        .space-mode { 
+            background: #000; 
+            color: #fff; 
+        }
+        .space-mode::before, .space-mode::after {
+            display: block;
+        }
+        
+        .top-navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background: rgba(31, 40, 46, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: rgba(31, 40, 46, 0.8);
+            padding: 20px;
+            position: fixed;
+            top: 60px;
+            left: 0;
+            z-index: 999;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            overflow-y: auto;
+        }
+        .sidebar.collapsed {
+            width: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        
+        .main-content {
+            margin-left: 250px;
+            margin-top: 80px;
+            width: calc(100% - 250px);
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        .main-content.expanded {
+            margin-left: 0;
+            width: 100%;
+        }
+        
+        .search-bar {
+            flex-grow: 1;
+            max-width: 600px;
+            margin: 0 20px;
+        }
+        
+        .search-bar input {
+            width: 100%;
+            padding: 10px 15px;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+        
+        .pure-light-mode .search-bar input {
+            background: rgba(0,0,0,0.1);
+            border: 1px solid rgba(0,0,0,0.2);
+            color: black;
+        }
+        
+        .room-card {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            background: rgba(31, 40, 46, 0.7);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 15px;
+        }
+        .pure-dark-mode .room-card { background: rgba(0,0,0,0.7); }
+        .pure-light-mode .room-card { background: rgba(255,255,255,0.7); color: #000; }
+        .space-mode .room-card { background: rgba(31, 40, 46, 0.7); }
+        .room-card:hover { 
+            border: 1px solid #1e90ff;
+            box-shadow: 0 10px 20px rgba(30, 144, 255, 0.3);
+        }
+        .room-title { 
+            color: #ffffff; 
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(30, 144, 255, 0.7);
+        }
+        
+        .pure-light-mode .room-title {
+            color: #000;
+            text-shadow: none;
+        }
+        
+        .mode-buttons button {
+            margin: 0 5px;
+            padding: 8px 15px;
+            background: rgba(42, 42, 42, 0.7);
+            color: #fff;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+        }
+        
+        .pure-light-mode .mode-buttons button {
+            background: rgba(255,255,255,0.7);
+            color: #000;
+        }
+        
+        .mode-buttons button:hover {
+            background: rgba(30, 144, 255, 0.7);
+        }
+        
+        .plus-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #1e90ff;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            cursor: pointer;
+            z-index: 100;
+        }
+        
+        .trending-nav {
+            display: flex;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .trending-nav a {
+            padding: 10px 15px;
+            margin-right: 10px;
+            border-radius: 20px;
+            color: white;
+            text-decoration: none;
+        }
+        
+        .trending-nav a:hover, .trending-nav a.active {
+            background: rgba(30, 144, 255, 0.3);
+        }
+        
+        .pure-light-mode .trending-nav a {
+            color: #000;
+        }
+        
+        .people-in-room {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .people-in-room img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid #1e90ff;
+        }
+    </style>
+</head>
+<body class="space-mode">
+    <!-- Top Navbar -->
+    <div class="top-navbar">
+        <button id="toggle-sidebar" class="text-white mr-4"><i class="fas fa-bars"></i></button>
+        <div class="text-xl font-bold text-white">HAPPY TALK</div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search rooms...">
+        </div>
+        <div class="mode-buttons ml-auto">
+            <button id="pure-dark-btn"><i class="fas fa-moon"></i> Dark</button>
+            <button id="pure-light-btn"><i class="fas fa-sun"></i> Light</button>
+            <button id="space-btn"><i class="fas fa-rocket"></i> Space</button>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="mb-6">
+            <h3 class="text-lg font-bold mb-2">Active Rooms</h3>
+            <div class="people-in-room">
+                <img src="https://via.placeholder.com/50" alt="User">
+                <img src="https://via.placeholder.com/50" alt="User">
+                <img src="https://via.placeholder.com/50" alt="User">
+                <img src="https://via.placeholder.com/50" alt="User">
+                <img src="https://via.placeholder.com/50" alt="User">
+            </div>
+        </div>
+        <button class="w-full py-2 px-4 mb-2 bg-blue-500 text-white rounded-lg">Home</button>
+        <button class="w-full py-2 px-4 mb-2 bg-blue-500 text-white rounded-lg">Profile</button>
+        <button class="w-full py-2 px-4 mb-2 bg-blue-500 text-white rounded-lg">Rooms</button>
+        <button class="w-full py-2 px-4 mb-2 bg-blue-500 text-white rounded-lg">Settings</button>
+        
+        <div class="mt-6">
+            <h3 class="text-lg font-bold mb-2">Trending Topics</h3>
+            <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-blue-900 bg-opacity-50 rounded-full">#LanguageExchange</span>
+                <span class="px-3 py-1 bg-blue-900 bg-opacity-50 rounded-full">#CultureTalk</span>
+                <span class="px-3 py-1 bg-blue-900 bg-opacity-50 rounded-full">#TravelTips</span>
+                <span class="px-3 py-1 bg-blue-900 bg-opacity-50 rounded-full">#FoodLovers</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="trending-nav">
+            <a href="#" class="active">All</a>
+            <a href="#">Trending</a>
+            <a href="#">Popular</a>
+            <a href="#">New</a>
+            <a href="#">Languages</a>
+            <a href="#">Topics</a>
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">English Conversation</h3>
+                <p>5/10 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">Spanish Practice</h3>
+                <p>3/8 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">French Chat</h3>
+                <p>4/12 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">German Discussion</h3>
+                <p>6/10 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">Italian Practice</h3>
+                <p>2/15 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+            <div class="room-card">
+                <h3 class="room-title text-lg font-bold">Japanese Exchange</h3>
+                <p>7/10 people</p>
+                <div class="people-in-room">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                    <img src="https://via.placeholder.com/50" alt="User">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Plus Button -->
+    <div class="plus-button">
+        <i class="fas fa-plus"></i>
+    </div>
+
+    <script>
+        const toggleSidebar = document.getElementById('toggle-sidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const mainContent = document.querySelector('.main-content');
+        const pureDarkBtn = document.getElementById('pure-dark-btn');
+        const pureLightBtn = document.getElementById('pure-light-btn');
+        const spaceBtn = document.getElementById('space-btn');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.classList.toggle('collapsed');
+            mainContent.classList.toggle('expanded');
+        });
+
+        pureDarkBtn.addEventListener('click', () => {
+            document.body.classList.remove('pure-light-mode', 'space-mode');
+            document.body.classList.add('pure-dark-mode');
+        });
+
+        pureLightBtn.addEventListener('click', () => {
+            document.body.classList.remove('pure-dark-mode', 'space-mode');
+            document.body.classList.add('pure-light-mode');
+        });
+
+        spaceBtn.addEventListener('click', () => {
+            document.body.classList.remove('pure-dark-mode', 'pure-light-mode');
+            document.body.classList.add('space-mode');
+        });
+
+        // Add more stars dynamically
+        function addMoreStars() {
+            const starsContainer = document.createElement('div');
+            starsContainer.style.position = 'fixed';
+            starsContainer.style.top = '0';
+            starsContainer.style.left = '0';
+            starsContainer.style.width = '100%';
+            starsContainer.style.height = '100%';
+            starsContainer.style.zIndex = '-1';
+            starsContainer.style.pointerEvents = 'none';
+            
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.style.position = 'absolute';
+                star.style.width = Math.random() * 3 + 'px';
+                star.style.height = star.style.width;
+                star.style.backgroundColor = 'white';
+                star.style.borderRadius = '50%';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.opacity = Math.random();
+                star.style.animation = `twinkle ${Math.random() * 5 + 3}s infinite alternate`;
+                starsContainer.appendChild(star);
+            }
+            
+            document.body.appendChild(starsContainer);
+        }
+        
+        // Call the function to add more stars
+        addMoreStars();
+    </script>
+</body>
+</html>
