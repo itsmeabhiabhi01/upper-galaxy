@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>HAPPY TALK</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            transition: background 0.3s ease;
+            background: #000 url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPgogIDxmaWx0ZXIgaWQ9Im5vaXNlIj4KICAgIDxmZVR1cmJ1bGVuY2UgdHlwZT0iZnJhY3RhbE5vaXNlIiBiYXNlRnJlcXVlbmN5PSIwLjA1IiBudW1PY3RhdmVzPSI1IiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+CiAgICA8ZmVDb2xvck1hdHJpeCB0eXBlPSJzYXR1cmF0ZSIgdmFsdWVzPSIwIi8+CiAgPC9maWx0ZXI+CiAgPHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsdGVyPSJ1cmwoI25vaXNlKSIgb3BhY2l0eT0iMC4yIi8+Cjwvc3ZnPg==') repeat;
+            color: #fff;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 10% 20%, rgba(0, 71, 171, 0.7) 0%, transparent 15%),
+                radial-gradient(circle at 90% 60%, rgba(0, 26, 102, 0.7) 0%, transparent 15%),
+                radial-gradient(circle at 30% 50%, rgba(0, 183, 255, 0.7) 0%, transparent 15%),
+                radial-gradient(circle at 70% 30%, rgba(0, 71, 171, 0.7) 0%, transparent 15%),
+                radial-gradient(ellipse at center, rgba(0,0,0,0) 0%, #000 100%);
+            z-index: -2;
+            animation: galaxyPulse 10s infinite alternate;
+        }
+
+        @keyframes galaxyPulse {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; }
+        }
+
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(2px 2px at 15px 25px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 35px 65px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 85px 35px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 125px 75px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 155px 115px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 195px 45px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 225px 95px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 265px 65px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 295px 15px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 325px 55px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 355px 85px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 385px 35px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 415px 105px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 445px 25px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 475px 75px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 505px 45px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 535px 95px, #fff, rgba(0,0,0,0));
+            background-size: 550px 550px;
+            z-index: -1;
+            animation: stars 30s linear infinite;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: 550px 0; }
+        }
+
+        .no-animation body::before,
+        .no-animation body::after,
+        .no-animation .pulsing-star,
+        .no-animation .comet,
+        .no-animation .nebula {
+            animation: none !important;
+            display: none !important;
+        }
+
+        .dark-mode {
+            background: #000 !important;
+            color: #fff;
+        }
+        .dark-mode::before, .dark-mode::after {
+            display: none;
+        }
+        .dark-mode .sidebar {
+            background: #000;
+        }
+        .dark-mode .room-card {
+            background: #111;
+        }
+
+        .light-mode {
+            background: #fff !important;
+            color: #000;
+        }
+        .light-mode::before, .light-mode::after {
+            display: none;
+        }
+        .light-mode .sidebar {
+            background: #fff;
+            color: #000;
+        }
+        .light-mode .room-card {
+            background: #f0f0f0;
+            color: #000;
+        }
+        .light-mode .room-title {
+            color: #000;
+        }
+        .light-mode .search-section i {
+            color: #000;
+        }
+        .light-mode .search-section input {
+            color: #000;
+            border: 1px solid #000;
+            background: rgba(0, 0, 0, 0.1);
+        }
+
+        .real-mode {
+            background: #000 !important;
+            color: #fff;
+        }
+        .real-mode::before, .real-mode::after {
+            display: block;
+        }
+        .real-mode .sidebar {
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+        }
+        .real-mode .room-card {
+            background: rgba(31, 40, 46, 0.8);
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 60px;
+            left: -100%;
+            width: 75%;
+            max-width: 250px;
+            height: calc(100% - 60px);
+            background: rgba(0, 0, 0, 0.9);
+            backdrop-filter: blur(8px);
+            transition: left 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar button {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            color: #fff;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .sidebar button i {
+            margin-right: 10px;
+        }
+
+        .sidebar button:hover {
+            background: linear-gradient(45deg, #00b7ff, #0047ab);
+            transform: translateY(-2px);
+            box-shadow: 0 0 15px rgba(0, 183, 255, 0.5);
+        }
+
+        .main-content {
+            padding: 20px;
+            width: 100%;
+            transition: margin-left 0.3s ease;
+            margin-top: 60px;
+        }
+
+        @media (min-width: 769px) {
+            .main-content.shifted {
+                margin-left: 250px;
+                width: calc(100% - 250px);
+            }
+        }
+
+        .room-card {
+            width: 100%;
+            min-height: 250px;
+            padding: 20px;
+            border-radius: 15px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            background: rgba(31, 40, 46, 0.8);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            margin: 0 auto 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .room-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 183, 255, 0.2) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: -1;
+        }
+
+        .room-card:hover::before {
+            opacity: 1;
+        }
+
+        .dark-mode .room-card {
+            background: #111;
+        }
+        .light-mode .room-card {
+            background: #f0f0f0;
+            color: #000;
+        }
+        .real-mode .room-card {
+            background: rgba(31, 40, 46, 0.8);
+        }
+        .room-card:hover {
+            border: 2px solid #00b7ff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 183, 255, 0.4);
+        }
+        .room-title {
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            text-shadow: 0 0 10px rgba(0, 183, 255, 0.8);
+            font-size: 1.5rem;
+        }
+        .light-mode .room-title {
+            color: #000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .profile-pic {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin: 5px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        .profile-pic:hover::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #00b7ff;
+            animation: rotateColor 2s infinite;
+        }
+        .profile-pic.premium::after {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 3px solid #00b7ff;
+        }
+        .people-row {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            gap: 5px;
+            max-width: 100%;
+        }
+        @keyframes rotateColor {
+            0% { transform: rotate(0deg); border-color: #00b7ff; }
+            50% { border-color: #008b6d; }
+            100% { transform: rotate(360deg); border-color: #00b7ff; }
+        }
+
+        .create-room-modal {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(135deg, #000000, #0047ab);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 183, 255, 0.5);
+            z-index: 1000;
+            color: #fff;
+            width: 90%;
+            max-width: 400px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .create-room-modal.active {
+            display: block;
+        }
+        .create-room-modal input,
+        .create-room-modal select {
+            background: rgba(255, 255, 255, 0.9);
+            color: #000000;
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 999;
+        }
+        .modal-overlay.active {
+            display: block;
+        }
+
+        .custom-input {
+            display: none;
+            margin-top: 10px;
+        }
+        .custom-input.active {
+            display: block;
+        }
+
+        .plus-button {
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            color: #fff;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0, 183, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+        .plus-button:hover {
+            transform: scale(1.1) rotate(90deg);
+            box-shadow: 0 0 30px rgba(0, 183, 255, 0.7);
+        }
+
+        .title-section {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .title-section h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            margin: 0;
+            color: #00b7ff;
+            text-shadow: 0 0 15px #00b7ff, 0 0 30px #0047ab;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .title-section h1:hover {
+            color: #008b6d;
+            text-shadow: 0 0 20px #008b6d, 0 0 40px #00b7ff;
+            transform: scale(1.05);
+        }
+        .light-mode .title-section h1 {
+            color: #000;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+        .light-mode .title-section h1:hover {
+            color: #00b7ff;
+            text-shadow: 0 0 15px rgba(0, 183, 255, 0.7);
+        }
+
+        .navbar-toggle {
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px rgba(0, 183, 255, 0.5);
+        }
+
+        .search-section {
+            position: fixed;
+            top: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 500px;
+            z-index: 900;
+        }
+
+        .search-section input {
+            width: 100%;
+            padding: 10px 15px 10px 40px;
+            border-radius: 25px;
+            border: 1px solid #00b7ff;
+            background: rgba(0, 183, 255, 0.1);
+            color: #fff;
+            outline: none;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .search-section input:focus {
+            border-color: #008b6d;
+            box-shadow: 0 0 15px rgba(0, 183, 255, 0.5);
+        }
+
+        .search-section i {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #00b7ff;
+            font-size: 18px;
+        }
+
+        .profile-section {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-buttons {
+            position: fixed;
+            top: 65px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px 0;
+            z-index: 800;
+            background: transparent;
+        }
+
+        .nav-buttons button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 25px;
+            border: 1px solid #0047ab;
+            background: linear-gradient(45deg, #002b6b, #0047ab);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+        }
+
+        .nav-buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+
+        .nav-buttons button:hover::before {
+            left: 100%;
+        }
+
+        .nav-buttons button.active {
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.8);
+            transform: scale(1.05);
+            border-color: #00b7ff;
+        }
+        .nav-buttons button:hover {
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.8);
+            border-color: #00b7ff;
+        }
+        .nav-buttons button.discord {
+            background: linear-gradient(45deg, #5865F2, #7289DA);
+            border-color: #7289DA;
+        }
+        .nav-buttons button.premium {
+            background: linear-gradient(45deg, #dc2626, #f87171);
+            border-color: #f87171;
+        }
+        .nav-buttons button.create-room-btn {
+            background: linear-gradient(45deg, #002b6b, #00b7ff);
+            border-color: #00b7ff;
+        }
+
+        .category-buttons {
+            position: fixed;
+            top: 125px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 1200px;
+            display: none;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 10px 0;
+            z-index: 800;
+            justify-content: center;
+            background: transparent;
+        }
+        .category-buttons.active {
+            display: flex;
+        }
+        .category-buttons button {
+            padding: 10px 20px;
+            font-size: 14px;
+            border-radius: 25px;
+            border: 1px solid #0047ab;
+            background: linear-gradient(45deg, #002b6b, #0047ab);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        .category-buttons button:hover {
+            background: linear-gradient(45deg, #0047ab, #00b7ff);
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(0, 183, 255, 0.8);
+            border-color: #00b7ff;
+        }
+        .category-buttons button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s ease;
+            z-index: -1;
+        }
+        .category-buttons button:hover::before {
+            left: 100%;
+        }
+
+        .room-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+            margin: 140px auto 0;
+            padding: 0 10px;
+        }
+
+        @media (min-width: 768px) {
+            .room-grid {
+                grid-template-columns: repeat(3, 1fr);
+                margin-top: 160px;
+            }
+            .main-content {
+                padding: 20px 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .room-card {
+                min-height: 250px;
+                padding: 15px;
+                width: calc(100% - 30px);
+            }
+            .profile-pic {
+                width: 35px;
+                height: 35px;
+            }
+            .profile-pic:hover::before,
+            .profile-pic.premium::after {
+                width: 45px;
+                height: 45px;
+            }
+            .title-section h1 {
+                font-size: 1.5rem;
+            }
+            .nav-buttons button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            .category-buttons button {
+                padding: 8px 15px;
+                font-size: 12px;
+            }
+            .search-section {
+                width: 70%;
+            }
+        }
+
+        .join-room {
+            background: linear-gradient(45deg, #004d40, #00b7ff);
+            color: white;
+            border: 1px solid #00b7ff;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 16px;
+            font-weight: bold;
+            box-shadow: 0 0 10px rgba(0, 183, 255, 0.5);
+        }
+        .join-room:hover {
+            background: linear-gradient(45deg, #00b7ff, #004d40);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0, 183, 255, 0.7);
+            border-color: #008b6d;
+        }
+
+        .room-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .share-icon {
+            color: #00b7ff;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .share-icon:hover {
+            color: #008b6d;
+            transform: scale(1.2) rotate(15deg);
+            text-shadow: 0 0 15px rgba(0, 183, 255, 0.5);
+        }
+
+        .pulsing-star {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            border-radius: 50%;
+            background: white;
+            box-shadow: 0 0 25px white, 0 0 50px rgba(0, 183, 255, 0.7);
+            animation: pulse 2.5s infinite alternate;
+            z-index: -1;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            100% { opacity: 1; transform: scale(2.2); }
+        }
+
+        .comet {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%);
+            box-shadow: 0 0 30px white, 0 0 60px rgba(0, 183, 255, 0.6);
+            z-index: -1;
+            animation: cometFly 8s linear infinite;
+        }
+
+        @keyframes cometFly {
+            0% { transform: translate(0, 0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translate(800px, 600px); opacity: 0; }
+        }
+
+        .nebula {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 183, 255, 0.5) 0%, transparent 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: nebulaGlow 16s infinite alternate;
+        }
+
+        @keyframes nebulaGlow {
+            0% { opacity: 0.2; transform: scale(1); }
+            100% { opacity: 0.8; transform: scale(1.4); }
+        }
+    </style>
+</head>
+<body class="real-mode">
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <button id="close-sidebar-btn"><i class="fas fa-times"></i> Close</button>
+        <button id="dark-mode-btn"><i class="fas fa-moon"></i> Dark</button>
+        <button id="light-mode-btn"><i class="fas fa-sun"></i> Light</button>
+        <button id="real-mode-btn"><i class="fas fa-rocket"></i> Space</button>
+        <button id="stop-animation-btn"><i class="fas fa-pause"></i> Stop Animation</button>
+        <button id="color-picker-btn"><i class="fas fa-palette"></i> Pick Color</button>
+        <button id="settings-btn"><i class="fas fa-cog"></i> Settings</button>
+        <button id="notifications-btn"><i class="fas fa-bell"></i> Notifications</button>
+        <button id="profile-btn"><i class="fas fa-user"></i> Profile</button>
+        <button id="help-btn"><i class="fas fa-question-circle"></i> Help</button>
+        <button id="privacy-btn"><i class="fas fa-shield-alt"></i> Privacy Policy</button>
+        <button id="logout-btn"><i class="fas fa-sign-out-alt"></i> Logout</button>
+    </div>
+
+    <!-- Title -->
+    <div class="title-section">
+        <h1>HAPPY TALK</h1>
+        <button class="navbar-toggle" id="navbar-toggle"><i class="fas fa-bars"></i></button>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-section">
+        <input id="search-input" placeholder="Search rooms..." type="text"/>
+        <i class="fas fa-search"></i>
+    </div>
+
+    <!-- Profile Section -->
+    <div class="profile-section">
+        <input type="color" id="color-picker" style="display: none;">
+        <img alt="Profile" class="w-8 h-8 rounded-full" src="https://randomuser.me/api/portraits/men/1.jpg"/>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div class="nav-buttons" id="nav-buttons">
+        <button id="all-button">All</button>
+        <button>TRENDING</button>
+        <button>NEWS</button>
+        <button>TECH</button>
+        <button>AI</button>
+        <button>ENGLISH</button>
+        <button>PODCAST</button>
+        <button>MOVIES</button>
+        <button class="discord" onclick="window.open('https://discord.gg/bmfp2bmN', '_blank')">Discord</button>
+        <button class="premium">Premium</button>
+        <button class="create-room-btn" id="create-room-btn">Create Room</button>
+    </div>
+
+    <!-- Category Buttons -->
+    <div class="category-buttons" id="category-buttons"></div>
+
+    <!-- Main Content -->
+    <div class="main-content flex flex-col items-center w-full" id="main-content">
+        <!-- Room Cards -->
+        <div class="grid gap-6 w-full room-grid" id="room-grid">
+            <!-- Room 1 -->
+            <div class="room-card" data-language="english">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">English</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="english-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/EnglishRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 2 -->
+            <div class="room-card" data-language="spanish">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Spanish</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="spanish-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/SpanishRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 3 -->
+            <div class="room-card" data-language="french">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">French</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="french-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/FrenchRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 4 -->
+            <div class="room-card" data-language="german">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">German</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="german-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/GermanRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 5 -->
+            <div class="room-card" data-language="japanese">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Japanese</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="japanese-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/JapaneseRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 6 -->
+            <div class="room-card" data-language="korean">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Korean</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="korean-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/KoreanRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 7 -->
+            <div class="room-card" data-language="hindi">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Hindi</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="hindi-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/HindiRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 8 -->
+            <div class="room-card" data-language="arabic">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Arabic</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="arabic-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/ArabicRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+            <!-- Room 9 -->
+            <div class="room-card" data-language="portuguese">
+                <div class="flex justify-between items-center">
+                    <div class="text-xl font-bold room-title">Portuguese</div>
+                    <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                </div>
+                <div class="people-row mt-3" id="portuguese-people"></div>
+                <div class="room-footer">
+                    <i class="fas fa-share-alt share-icon"></i>
+                    <button class="join-room" onclick="window.open('https://meet.jit.si/PortugueseRoom', '_blank')">JOIN</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Create Room Modal -->
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="create-room-modal" id="create-room-modal">
+            <h2 class="text-2xl font-bold mb-6">Create a Room</h2>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Title</label>
+                <input type="text" class="w-full p-3 border rounded text-lg" id="room-title"/>
+            </div>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Language</label>
+                <select class="w-full p-3 border rounded text-lg" id="room-language">
+                    <option>English</option>
+                    <option>Spanish</option>
+                    <option>French</option>
+                    <option>Korean</option>
+                    <option>Japanese</option>
+                    <option>Hindi</option>
+                    <option>Tamil</option>
+                    <option>Telugu</option>
+                    <option>Bengali</option>
+                    <option>Malayalam</option>
+                    <option>German</option>
+                    <option>Italian</option>
+                    <option>Russian</option>
+                    <option>Arabic</option>
+                    <option>Portuguese</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label class="block mb-2 text-lg">Max People</label>
+                <select class="w-full p-3 border rounded text-lg" id="room-max-people">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                    <option>6</option>
+                    <option>7</option>
+                    <option>8</option>
+                    <option>9</option>
+                    <option>10</option>
+                    <option>Unlimited</option>
+                    <option>Custom</option>
+                </select>
+                <input type="number" class="w-full p-3 border rounded text-lg custom-input" id="custom-max" placeholder="Enter custom number"/>
+            </div>
+            <div class="mb-6">
+                <label class="flex items-center text-lg mb-2">
+                    <input type="checkbox" class="mr-2" id="mic-toggle"/> <i class="fas fa-microphone mr-2"></i> Mic
+                </label>
+                <label class="flex items-center text-lg mb-2">
+                    <input type="checkbox" class="mr-2" id="camera-toggle"/> <i class="fas fa-video mr-2"></i> Camera
+                </label>
+                <label class="flex items-center text-lg">
+                    <input type="checkbox" class="mr-2" id="chat-toggle"/> <i class="fas fa-comments mr-2"></i> Chat
+                </label>
+            </div>
+            <button class="bg-blue-600 text-white px-6 py-3 rounded text-lg w-full" id="create-button">Create</button>
+            <button class="bg-yellow-600 text-white px-6 py-3 rounded text-lg w-full mt-3" id="coffee-button" onclick="window.open('https://buymeacoffee.com', '_blank')">Buy Me a Coffee</button>
+        </div>
+
+        <!-- Plus Button -->
+        <div class="plus-button" id="plus-button">
+            <i class="fas fa-plus text-xl"></i>
+        </div>
+    </div>
+
+    <script>
+        const navbarToggle = document.getElementById('navbar-toggle');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebarBtn = document.getElementById('close-sidebar-btn');
+        const mainContent = document.getElementById('main-content');
+        const darkModeBtn = document.getElementById('dark-mode-btn');
+        const lightModeBtn = document.getElementById('light-mode-btn');
+        const realModeBtn = document.getElementById('real-mode-btn');
+        const stopAnimationBtn = document.getElementById('stop-animation-btn');
+        const colorPickerBtn = document.getElementById('color-picker-btn');
+        const colorPicker = document.getElementById('color-picker');
+        const allButton = document.getElementById('all-button');
+        const categoryButtons = document.getElementById('category-buttons');
+        const navButtons = document.getElementById('nav-buttons');
+        const createRoomBtn = document.getElementById('create-room-btn');
+        const createRoomModal = document.getElementById('create-room-modal');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const createButton = document.getElementById('create-button');
+        const roomMaxPeople = document.getElementById('room-max-people');
+        const customMax = document.getElementById('custom-max');
+        const searchInput = document.getElementById('search-input');
+        const roomGrid = document.getElementById('room-grid');
+        const plusButton = document.getElementById('plus-button');
+        const privacyBtn = document.getElementById('privacy-btn');
+
+        const languages = [
+            'English', 'Spanish', 'French', 'German', 'Italian', 'Japanese', 'Chinese', 'Korean', 'Russian', 'Arabic',
+            'Portuguese', 'Hindi', 'Bengali', 'Tamil', 'Telugu', 'Marathi', 'Gujarati', 'Punjabi', 'Urdu', 'Kannada',
+            'Malayalam', 'Odia', 'Assamese'
+        ];
+
+        let animationStopped = false;
+
+        // Function to generate random profile pictures
+        function getRandomProfilePics(count) {
+            const pics = [];
+            for (let i = 0; i < count; i++) {
+                const gender = Math.random() > 0.5 ? 'men' : 'women';
+                const id = Math.floor(Math.random() * 100);
+                const isPremium = Math.random() > 0.7 ? ' premium' : '';
+                pics.push(`<img class="profile-pic${isPremium}" src="https://randomuser.me/api/portraits/${gender}/${id}.jpg"/>`);
+            }
+            return pics.join('');
+        }
+
+        // Populate rooms with random profile pics on load
+        function populateRooms() {
+            const rooms = [
+                'english', 'spanish', 'french', 'german', 'japanese',
+                'korean', 'hindi', 'arabic', 'portuguese'
+            ];
+            rooms.forEach(room => {
+                const count = Math.floor(Math.random() * 5) + 1; // 1 to 5 people
+                document.getElementById(`${room}-people`).innerHTML = getRandomProfilePics(count);
+            });
+        }
+
+        // Call on page load
+        populateRooms();
+
+        // Toggle sidebar open/close
+        function toggleSidebar() {
+            sidebar.classList.toggle('active');
+            mainContent.classList.toggle('shifted');
+        }
+
+        navbarToggle.addEventListener('click', toggleSidebar);
+        closeSidebarBtn.addEventListener('click', toggleSidebar);
+
+        // Close sidebar when clicking outside on mobile
+        document.addEventListener('click', (e) => {
+            if (sidebar.classList.contains('active') && 
+                !sidebar.contains(e.target) && 
+                !navbarToggle.contains(e.target) && 
+                window.innerWidth <= 768) {
+                toggleSidebar();
+            }
+        });
+
+        darkModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('light-mode', 'real-mode');
+            document.body.classList.add('dark-mode');
+        });
+
+        lightModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'real-mode');
+            document.body.classList.add('light-mode');
+        });
+
+        realModeBtn.addEventListener('click', () => {
+            document.body.classList.remove('dark-mode', 'light-mode');
+            document.body.classList.add('real-mode');
+        });
+
+        stopAnimationBtn.addEventListener('click', () => {
+            animationStopped = !animationStopped;
+            document.body.classList.toggle('no-animation');
+            stopAnimationBtn.innerHTML = animationStopped
+                ? '<i class="fas fa-play"></i> Start Animation'
+                : '<i class="fas fa-pause"></i> Stop Animation';
+            document.querySelectorAll('.pulsing-star, .comet, .nebula').forEach(el => el.remove());
+            if (!animationStopped) {
+                createGalaxyEffects();
+            }
+        });
+
+        colorPickerBtn.addEventListener('click', () => {
+            colorPicker.click();
+        });
+
+        colorPicker.addEventListener('input', (e) => {
+            document.body.style.background = e.target.value;
+            document.body.classList.remove('dark-mode', 'light-mode', 'real-mode');
+        });
+
+        // All button functionality
+        allButton.addEventListener('click', function() {
+            if (categoryButtons.classList.contains('active')) {
+                categoryButtons.classList.remove('active');
+                allButton.classList.remove('active');
+                allButton.style.background = 'linear-gradient(45deg, #002b6b, #0047ab)';
+                allButton.style.borderColor = '#0047ab';
+                const rooms = document.querySelectorAll('.room-card');
+                rooms.forEach(room => {
+                    room.style.display = 'flex';
+                });
+                roomGrid.style.marginTop = '140px';
+                if (window.innerWidth >= 768) {
+                    roomGrid.style.marginTop = '160px';
+                }
+            } else {
+                categoryButtons.classList.add('active');
+                allButton.classList.add('active');
+                
+                categoryButtons.innerHTML = '';
+                
+                languages.forEach(lang => {
+                    const button = document.createElement('button');
+                    button.textContent = lang;
+                    button.addEventListener('click', () => {
+                        const rooms = document.querySelectorAll('.room-card');
+                        rooms.forEach(room => {
+                            const title = room.dataset.language.toLowerCase();
+                            if (title === lang.toLowerCase()) {
+                                room.style.display = 'flex';
+                                roomGrid.prepend(room);
+                            } else {
+                                room.style.display = 'none';
+                            }
+                        });
+                    });
+                    categoryButtons.appendChild(button);
+                });
+
+                roomGrid.style.marginTop = '180px';
+                if (window.innerWidth >= 768) {
+                    roomGrid.style.marginTop = '200px';
+                }
+            }
+        });
+
+        // Navigation buttons functionality
+        document.querySelectorAll('.nav-buttons button:not(#all-button)').forEach(button => {
+            button.addEventListener('click', function() {
+                document.querySelectorAll('.nav-buttons button').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn !== allButton) {
+                        btn.style.background = 'linear-gradient(45deg, #002b6b, #0047ab)';
+                        btn.style.borderColor = '#0047ab';
+                    }
+                });
+                
+                this.classList.add('active');
+                
+                const rooms = document.querySelectorAll('.room-card');
+                rooms.forEach(room => {
+                    room.style.display = 'flex';
+                });
+                
+                categoryButtons.classList.remove('active');
+                categoryButtons.innerHTML = '';
+                allButton.classList.remove('active');
+                allButton.style.background = 'linear-gradient(45deg, #002b6b, #0047ab)';
+                allButton.style.borderColor = '#0047ab';
+                roomGrid.style.marginTop = '140px';
+                if (window.innerWidth >= 768) {
+                    roomGrid.style.marginTop = '160px';
+                }
+            });
+        });
+
+        searchInput.addEventListener('input', () => {
+            const searchTerm = searchInput.value.toLowerCase();
+            const rooms = Array.from(roomGrid.children);
+            
+            rooms.forEach(room => {
+                const title = room.querySelector('.room-title').textContent.toLowerCase();
+                if (title.includes(searchTerm)) {
+                    room.style.display = 'flex';
+                } else {
+                    room.style.display = 'none';
+                }
+            });
+        });
+
+        createRoomBtn.addEventListener('click', () => {
+            createRoomModal.classList.add('active');
+            modalOverlay.classList.add('active');
+        });
+
+        plusButton.addEventListener('click', () => {
+            createRoomModal.classList.add('active');
+            modalOverlay.classList.add('active');
+        });
+
+        modalOverlay.addEventListener('click', () => {
+            createRoomModal.classList.remove('active');
+            modalOverlay.classList.remove('active');
+        });
+
+        createButton.addEventListener('click', () => {
+            const title = document.getElementById('room-title').value;
+            const language = document.getElementById('room-language').value.toLowerCase();
+            if (title && language) {
+                const newRoom = document.createElement('div');
+                newRoom.className = 'room-card';
+                newRoom.dataset.language = language;
+                const count = Math.floor(Math.random() * 5) + 1;
+                newRoom.innerHTML = `
+                    <div class="flex justify-between items-center">
+                        <div class="text-xl font-bold room-title">${title}</div>
+                        <div><i class="fas fa-microphone text-yellow-500"></i></div>
+                    </div>
+                    <div class="people-row mt-3">
+                        ${getRandomProfilePics(count)}
+                    </div>
+                    <div class="room-footer">
+                        <i class="fas fa-share-alt share-icon"></i>
+                        <button class="join-room" onclick="window.open('https://meet.jit.si/${title}Room', '_blank')">JOIN</button>
+                    </div>
+                `;
+                roomGrid.prepend(newRoom);
+                createRoomModal.classList.remove('active');
+                modalOverlay.classList.remove('active');
+            }
+        });
+
+        roomMaxPeople.addEventListener('change', () => {
+            customMax.classList.toggle('active', roomMaxPeople.value === 'Custom');
+        });
+
+        privacyBtn.addEventListener('click', () => {
+            window.open('privacy.html', '_blank');
+        });
+
+        // Add click effect to buttons
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('mousedown', () => {
+                button.style.transform = 'scale(0.95)';
+            });
+            button.addEventListener('mouseup', () => {
+                button.style.transform = '';
+            });
+            button.addEventListener('mouseleave', () => {
+                button.style.transform = '';
+            });
+        });
+
+        // Create galaxy effects
+        function createGalaxyEffects() {
+            if (animationStopped) return;
+            for (let i = 0; i < 70; i++) {
+                const star = document.createElement('div');
+                star.className = 'pulsing-star';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.animationDelay = Math.random() * 5 + 's';
+                document.body.appendChild(star);
+            }
+
+            for (let i = 0; i < 20; i++) {
+                const comet = document.createElement('div');
+                comet.className = 'comet';
+                comet.style.top = Math.random() * 50 + 'vh';
+                comet.style.left = Math.random() * 50 + 'vw';
+                comet.style.animationDelay = Math.random() * 7 + 's';
+                document.body.appendChild(comet);
+            }
+
+            for (let i = 0; i < 8; i++) {
+                const nebula = document.createElement('div');
+                nebula.className = 'nebula';
+                nebula.style.top = Math.random() * 80 + 'vh';
+                nebula.style.left = Math.random() * 80 + 'vw';
+                nebula.style.animationDelay = Math.random() * 10 + 's';
+                document.body.appendChild(nebula);
+            }
+        }
+
+        createGalaxyEffects();
+    </script>
+</body>
+</html>
